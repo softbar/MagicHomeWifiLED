@@ -1,0 +1,8 @@
+{
+	"elements":[
+		{"name":"BindIP", "type":"Select","caption":"Bind Discover to IP", "options":[]}
+	],
+   	"actions":[
+ 	 	{"type":"Configurator", "name":"DiscoverList","delete":true}
+   	]
+}

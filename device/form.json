@@ -1,0 +1,123 @@
+{
+        "elements":
+        [
+        	{"type":"CheckBox", "name":"WritePersistent", "caption":"Save data permanently" },
+        	{"type":"Select", "name":"ShowColorMode", "caption":"Color Mode" , "options": [
+         		{"label":"Color only",  "value" : 0},
+         		{"label":"RGB only", 	"value" : 1},
+         		{"label":"Color & RGB", "value" : 2}
+         	]},
+			{ "type": "ExpansionPanel", "caption": "Expert Settings","items": [
+		         	{"type":"Select", "name":"ModelType", "caption":"Model Type" , "options": [
+		         		{"label":"White only",  "value" : 0},
+		         		{"label":"RGB",  "value" : 1},
+		         		{"label":"RGB/w", "value" : 2},
+		         		{"label":"RGB/w & white channel", "value": 3}
+		         	]},
+		        	{"type":"Select", "name":"ProtocolType", "caption":"Protocol" , "options": [
+		         		{"label":"MagicHome",  "value" : 0},
+		         		{"label":"LEDENET 8 Bit", "value" : 1},
+		         		{"label":"LEDENET_Original", "value" : 2}
+		         	]},
+		        	{"type":"CheckBox", "name":"NeedCheckSum", "caption":"Require Checksum" },
+		        	{"type":"CheckBox", "name":"RequireSeparateRgbwBit", "caption":"Require Separate RGBW Bit" },
+					{"type":"CheckBox", "name":"EnableTimerList", "caption":"EnableT imerList" },
+					{"type":"CheckBox", "name":"AutoUpdateTimerList", "caption":"Trigger reload Timerlist when Form loaded" },
+					{"type":"CheckBox", "name":"AutoRemoveExpiredTimers", "caption":"Remove expired timers when sending" }
+				
+				]
+        	}        	
+        ],
+        "actions":[
+         	{ "type": "ExpansionPanel", "caption": "Timer Settings", "expanded":true, "items": [
+        			{"type":"List", "name":"TimerList", "columns": [
+        					{"name":"id",  		"caption": "ID", 		"width":"50" },
+        					{"name":"info",  	"caption": "Information",		"width":"auto" }
+        				]
+        			},
+        			{"type":"RowLayout", "items" : [
+ 							{"type": "PopupButton", "caption": "Configure Timer", "popup": { "caption": "Timer Configuration", "items": [
+                					{"type": "Select", "name": "TimerID", "caption": "Select Timer", "onChange":"MHC_SetFormField($id,'TimerID','value',$TimerID);", "options":[
+                							{"label":"Timer 1","value":0},
+                							{"label":"Timer 2","value":1},
+                							{"label":"Timer 3","value":2},
+                							{"label":"Timer 4","value":3},
+                							{"label":"Timer 5","value":4},
+                							{"label":"Timer 6","value":5}
+                						] 
+                					},
+                					{"type":"CheckBox", "name":"Active", "caption":"Timer Active" ,"onChange":"MHC_SetFormField($id,'Active','value',$Active);"},
+                					{"type": "Select", "name": "Mode", "caption": "Select Function", "onChange":"MHC_SetFormField($id,'Mode','value',$Mode);", "options":[
+                							
+                							{"label":"Color",  "value":97},
+                							{"label":"Sunrise","value":161},
+											{"label":"Sunset","value":162},
+											{"label":"Seven colors crossfade","value":37},
+											{"label":"Red gradual change","value":38},
+											{"label":"Green gradual change","value":39},
+											{"label":"Blue gradual change","value":40},
+											{"label":"Yellow gradual change","value":41},
+											{"label":"Cyan gradual change","value":42},
+											{"label":"Purple gradual change","value":43},
+											{"label":"White gradual change","value":44},
+											{"label":"Red green crossfade","value":45},
+											{"label":"Red blue crossfade","value":46},
+											{"label":"Green blue crossfade","value":47},
+											{"label":"Seven color strobe flash","value":48},
+											{"label":"Red strobe flash","value":49},
+											{"label":"Green strobe flash","value":50},
+											{"label":"Blue strobe flash","value":51},
+											{"label":"Yellow strobe flash","value":52},
+											{"label":"Cyan strobe flash","value":53},
+											{"label":"Purple strobe flash","value":54},
+											{"label":"White strobe flash","value":55},
+											{"label":"Seven color jumping","value":56},
+                							{"label":"White only",    "value":254},
+                							{"label":"Switch",    "value":0}
+                						] 
+                					},
+                					{ "type": "HorizontalSlider", "name": "Speed", "caption": "Preset speed","minimum": 0, "maximum": 100, "value":0 },
+                					{ "type": "HorizontalSlider", "name": "Duration", "caption": "Duration","minimum": 0, "maximum": 100, "value":0 },
+                 					{ "type": "HorizontalSlider", "name": "WWStart", "caption": "White Level start","minimum": 0, "maximum": 100, "value":0},
+                 					{ "type": "HorizontalSlider", "name": "WWEnd", "caption": "White Level end","minimum": 0, "maximum": 100, "value":0},
+                  					{ "type": "HorizontalSlider", "name": "WW", "caption": "White Level","minimum": 0, "maximum": 100, "value":0 },
+                		
+
+                					{"type": "SelectColor", "name": "Color", "caption": "Select Color"},
+                					{"type": "SelectDateTime", "name": "Date", "caption": "Select start Date"},
+                					{"type": "Label", "caption":"Repeats"},
+                					{"type": "RowLayout", "items" : [
+                							
+		                					{"type":"CheckBox", "name":"Mo", "caption":"Mo" },
+		                					{"type":"CheckBox", "name":"Tu", "caption":"Tu" },
+		                					{"type":"CheckBox", "name":"We", "caption":"We" },
+		                					{"type":"CheckBox", "name":"Th", "caption":"Th" },
+		                					{"type":"CheckBox", "name":"Fr", "caption":"Fr" },
+		               						{"type":"CheckBox", "name":"Sa", "caption":"Sa" },
+		               						{"type":"CheckBox", "name":"Su", "caption":"Su" }
+										]
+									},               						
+                					{"type":"CheckBox", "name":"Power", "caption":"Switch" },
+   									{"type":"Button","caption":"Save Timer","onClick":"if(is_null($Mode))echo 'No Function selected'; else IPS_RequestAction($id,'SAVE_TIMER',json_encode([$TimerID,$Active,$Mode,$Speed,$Duration,$WWStart,$WWEnd,$Color,$Date,$Mo,$Tu,$We,$Th,$Fr,$Sa,$Su,$WW,$Power]));"}
+            					]
+        					}},
+ 							{"type":"Button","caption":"Update Timerlist","onClick":"IPS_RequestAction($id,'UPDATE',3);"},
+ 							{"type":"Button", "name":"TransferBtn", "caption":"Transfer Timerlist", "visible":false, "onClick":"IPS_RequestAction($id,'SAVE_TIMERLIST',0);"}
+  
+        				]
+        			}	
+        		]
+        	},
+        	{ "type": "ExpansionPanel", "caption": "Device Time Settings", "items": [
+   					{"type":"Label",	"name":"DeviceTime", "caption":"Device time is loading..." },
+					{"type":"Button","caption":"Update Device Time","onClick":"IPS_RequestAction($id,'UPDATE',2);"},
+					{"type":"Button","caption":"Sync Device Time with pc","onClick":"IPS_RequestAction($id,'SYNC_TIME',$DeviceTime);"}
+        		]
+        	},	
+ 			{"type":"Button","caption":"Full Update","onClick":"IPS_RequestAction($id,'UPDATE',1);"}
+        ],
+		"status":
+		[
+			{ "code": 201, "icon": "error", "caption": "Modeltype invalid" }
+		]
+}

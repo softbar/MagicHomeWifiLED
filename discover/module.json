@@ -1,0 +1,13 @@
+{
+    "id": "{5638FDC0-C110-WIFI-MAHO-201905120DIS}",
+    "name": "WifiLEDDiscover",
+    "type": 5,
+    "vendor": "Xaver Bauer",
+    "aliases": [
+        "WifiControler Discover"
+    ],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "MHD"
+}
