@@ -124,7 +124,9 @@ class WifiLEDControler extends IPSModule {
     	}
     	elseif($rawLen==11 || $rawLen==14){
     		if($checkOk){
+    			
     			$this->_ProcessRawData($raw);
+    			$this->_SendACK();
     		} else $error="Checksum Error received for Data response!";
     	}
     	else {
@@ -133,6 +135,9 @@ class WifiLEDControler extends IPSModule {
     	if($error){
     		IPS_LogMessage(IPS_GetName($this->InstanceID), $this->Translate($error));
     	}
+	}
+	private function _SendACK(){
+		$this->_SendData([0xF0, 0x71,0x24]);
 	}
  	public function RequestAction($Ident, $Value){
 		switch($Ident){
