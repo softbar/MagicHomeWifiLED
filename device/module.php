@@ -816,7 +816,7 @@ class WifiLEDControler extends IPSModule {
         }
         $msg=[0x21];
         foreach($timer_list as $id=>$item){
-        	$item->id=$id;
+        	$item->id=$id+1;
 			if($item->expired)$item->rowColor='#FFC0C0';
 			elseif($item->data[0]!== 0xf0)$item->rowColor='#DFDFDF';
 			else $item->rowColor='#C0FFC0';
