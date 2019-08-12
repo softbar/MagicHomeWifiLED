@@ -549,6 +549,9 @@ class WifiLEDControler extends IPSModule {
 		#     |  type
 		#     msg head
 		// arbeitet nicht richtig ?? der on/off state wird nicht immer richtig zurückgeliefert
+    	# Normalerweise sollte unter 2 (23/24) kommen für an/aus 
+    	# aber es kommt fast immer 24
+    
     }
     private function _ProcessRawTime(array $raw){
     	#pos 0  1  2  3  4  5  6  7  8  9 10 11
