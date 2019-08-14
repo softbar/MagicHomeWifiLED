@@ -961,20 +961,17 @@ class WifiBulbControler extends IPSModule {
         return join(' ',$txt);
     }
 	private function SetTimerConfig($JSONFormString){
-    	list($TimerID,$Active,$Mode,$Speed,$Duration,$WWStart,$WWEnd,$Color,$Date,$Mo,$Tu,$We,$Th,$Fr,$Sa,$Su,$WW,$Power)=json_decode($JSONFormString,true);
-		$timer_list = $this->_GetTimerList();
+    	list($TimerID,$Active,$Mode,$Speed,$Duration,$WWStart,$WWEnd,$Color,$Date,$Time,$Mo,$Tu,$We,$Th,$Fr,$Sa,$Su,$WW,$Power)=json_decode($JSONFormString,true);
+    	$timer_list = $this->LoadTimerList();
 		$item = $timer_list[$TimerID];
-		$saved = $item->data;
+  		$saved = $item->data;
         if ($Active){
 	        $item->data[0] = 0xf0;
-	        if($date=json_decode($Date,true)){
-		        $item->data[1] = $date['year'] >= 2000 ? $date['year'] - 2000 : $date['year'];
-		        $item->data[2] = $date['month'];
-		        $item->data[3] = $date['day'];
-		        $item->data[4] = $date['hour'];
-		        $item->data[5] = $date['minute'];
-	        } else 
-	        	list($item->data[1],$item->data[2],$item->data[3],$item->data[4],$item->data[5])=[0,0,0,0,0];
+	        
+	        if($time=json_decode($Time,true)){
+		        $item->data[4] = $time['hour'];
+		        $item->data[5] = $time['minute'];
+	        } else list($item->data[4],$item->data[5])=[0,0];
 		   		
 	       
 	        $repeat_mask = 0;
@@ -986,10 +983,19 @@ class WifiBulbControler extends IPSModule {
 	        if($Sa)$repeat_mask|=self::BuilInDayMask['Sa'];
 	        if($Su)$repeat_mask|=self::BuilInDayMask['Su'];
 	        $item->data[7] = $repeat_mask;
-		   	$item->expired=$this->IsTimerExpired($item->data);
+	        if(!$repeat_mask){
+		        if($date=json_decode($Date,true)){
+			        $item->data[1] = $date['year'] >= 2000 ? $date['year'] - 2000 : $date['year'];
+			        $item->data[2] = $date['month'];
+			        $item->data[3] = $date['day'];
+			    }
+	        	else list($item->data[1],$item->data[2],$item->data[3])=[0,0,0];
+	        }
+	        
+	        $item->expired=$this->IsTimerExpired($item->data);
 			if($item->expired)$item->rowColor=self::COLOR_EXPIRED;
-			elseif($item->data[0]== 0xf0)$item->rowColor=self::COLOR_ACTIVE;
-			else $item->rowColor=self::COLOR_EMPTY;
+			elseif($item->data[0]!== 0xf0)$item->rowColor=self::COLOR_EMPTY;
+			else $item->rowColor=self::COLOR_ACTIVE;
 		   	
 	        if ($Power){
 		        $item->data[13] = 0xf0;
@@ -1005,6 +1011,7 @@ class WifiBulbControler extends IPSModule {
 		           	$item->data[9] = $Duration;
 		            $item->data[10] = $WWStart;
 		            $item->data[11] = $WWEnd;
+		            list($item->data[1],$item->data[2],$item->data[3],$item->data[4],$item->data[5])=[0,0,0,0,0];
 		        }
 		        $item->data[8] = $Mode;
 		 		$item->data[12] = $Mode==0xFE ?  $WW : 0xFF;
@@ -1022,6 +1029,7 @@ class WifiBulbControler extends IPSModule {
         $this->WriteAttributeString('TimerList', $values=json_encode($timer_list));
 		$this->UpdateFormField('TimerList', 'values', $values);
 	}
+    
     ################################################################
     #  Module Update / Timer
 	################################################################
