@@ -1,12 +1,15 @@
 {
-	"translations": {
-		"de": {
-			"Wifi RGB/w Devices":"Wlan RGB/w Geräte",
-			"Error unknown Response":"Fehler unbekannte Antwort",
-			"Found":"Gefunden",
-			"RGB/w with extra w channel":"RGB/w mit extra Weißkanal",
-			"White only":"Nur weiß",
-			"Bind Discover to IP":"Lokale IP des IPS-Servers"
-		}
-	}
+    "translations": {
+        "de": {
+            "Address": "Host",
+            "Name": "Name",
+            "Status": "Status",
+            "Wifi RGB\/w Devices": "Wlan RGB/w Geräte",
+            "Found": "Found",
+            "Error unknown Response": "Fehler unbekannte Antwort",
+            "Online": "Verbunden",
+            "Offline": "Getrennt",
+            "RGB\/w with extra w channel": "RGB/w mit extra Weißkanal"
+        }
+    }
 }

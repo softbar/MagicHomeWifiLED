@@ -1,8 +1,10 @@
 {
-	"elements":[
-		{"name":"BindIP", "type":"Select","caption":"Bind Discover to IP", "options":[]}
-	],
    	"actions":[
- 	 	{"type":"Configurator", "name":"DiscoverList","delete":true}
+ 	 	{"type":"Configurator", "name":"DiscoverList","delete":true, "columns": [
+ 	 			{"name":"address", 	"caption":"Address",  "width":"120px" },
+ 	 			{"name":"name", 	"caption":"Name", "width":"auto" },
+ 	 			{"name":"status", 	"caption":"Status", "width":"100px" }
+ 	 		]
+ 	 	}
    	]
 }

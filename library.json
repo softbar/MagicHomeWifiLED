@@ -1,12 +1,12 @@
 {  
 	"id": "{5638FDC0-C110-WIFI-MAHO-201905120000}",  
 	"author": "Xaver Bauer",
-	"name": "MagicHome Wifi LED Controler",
+	"name": "MagicHome WifiBulb LED Controler",
 	"url": "https://github.com/softbar/MagicHomeWifiLED",
 	"compatibility": {
 		"version": "5.2"
 	},
-	"version": "1.0",  
-	"build": 6001,
-	"date": 1565625109
+	"version": "2.0",  
+	"build": 203,
+	"date": 1565808879
 }

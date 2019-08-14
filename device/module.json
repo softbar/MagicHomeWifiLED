@@ -1,13 +1,13 @@
 {
-    "id": "{5638FDC0-C110-WIFI-MAHO-201905120MHC}",
-    "name": "WifiLEDControler",
+    "id": "{5638FDC0-C110-WIFI-MAHO-201905120WBC}",
+    "name": "WifiBulbControler",
     "type": 3,
     "vendor": "Xaver Bauer",
     "aliases": [
-        "Wifi LED Controler"
+        "WifiBulb RGB/w Controler"
     ],
     "parentRequirements": ["{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}"],
     "childRequirements": [],
     "implemented": ["{018EF6B5-AB94-40C6-AA53-46943E824ACF}"],
-    "prefix": "MHC"
+    "prefix": "WBC"
 }
