@@ -70,7 +70,7 @@ class WifiBulbControler extends IPSModule {
 				$this->UnRegisterMessage($ID,IM_CHANGESTATUS);
     			$this->SendDebug(__FUNCTION__,"DisConnect: ".$ID,0);
     		}
-    		$this->_UpdateOfflineName(true);	
+    		$this->UpdateOfflineName(true);	
     		$this->SetBuffer('LastConnectionID',0);
     	}
     }
