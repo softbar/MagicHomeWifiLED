@@ -10,6 +10,7 @@
 		{"type":"CheckBox", "name":"EnableTimerList", "caption":"EnableT imerList" },
 		{"type":"CheckBox", "name":"AutoUpdateTimerList", "caption":"Trigger reload Timerlist when Form loaded" },
 		{"type":"CheckBox", "name":"AutoRemoveExpiredTimers", "caption":"Remove expired timers when sending" },
+ 		{"type":"CheckBox", "name":"AutoUpdateDeviceTime", "caption":"Update device time when out of date" },
  		{ "type": "ExpansionPanel", "caption": "Expert Settings","items": [
 			    {"type":"Select", "name":"Protocol", "caption":"Protocol" , "options": [
 			       		{"label":"MagicHome",  "value" : 0},
@@ -95,15 +96,15 @@
         					}	
         				},
         				{"type":"Button", "caption":"Update Timerlist",		"name":"UpdateTimerListBtn","onClick":"IPS_RequestAction($id,'UPDATE',3);"},
- 						{"type":"Button", "caption":"Transfer Timerlist",  	"name":"TransferBtn", "visible":false, "onClick":"IPS_RequestAction($id,'SAVE_TIMERLIST',0);"}
+ 						{"type":"Button", "caption":"Transfer Timerlist",  	"name":"TransferBtn", "visible":false, "onClick":"IPS_RequestAction($id,'SAVE_TIMERLIST',0);echo 'OK';"}
         			]
         		}
         	]	
         },
         { "type": "ExpansionPanel", "caption": "Device Time Settings", "items": [
    				{"type":"Label",	"name":"DeviceTime", "caption":"Device time is loading..." },
-				{"type":"Button","caption":"Update Device Time","onClick":"IPS_RequestAction($id,'UPDATE',2);"},
-				{"type":"Button","caption":"Sync Device Time with pc","onClick":"IPS_RequestAction($id,'SYNC_TIME',true);"}
+				{"type":"Button","caption":"Read Device Time","onClick":"IPS_RequestAction($id,'UPDATE',2);echo 'OK';"},
+				{"type":"Button","caption":"Sync Device Time with pc","onClick":"IPS_RequestAction($id,'SYNC_TIME',true);echo 'OK';"}
         	]
         },	
  	 	{"type":"Button", "caption":"Refresh now", "onClick":"IPS_RequestAction($id,'UPDATE',0);"}

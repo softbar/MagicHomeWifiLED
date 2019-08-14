@@ -10,8 +10,9 @@ class WifiBulbControler extends IPSModule {
     	$this->RegisterPropertyInteger('ShowColorMode',self::SHOW_COLOR_ONLY);
     	$this->RegisterPropertyBoolean('EnableTimerList',false);
     	$this->RegisterPropertyBoolean('AutoUpdateTimerList',false);
-    	$this->RegisterPropertyBoolean('AutoRemoveExpiredTimers',false);
-    	
+    	$this->RegisterPropertyBoolean('AutoRemoveExpiredTimers',true);
+    	$this->RegisterPropertyBoolean('AutoUpdateDeviceTime',false);
+     	
     	$this->RegisterPropertyInteger('Protocol',0);
 		$this->RegisterPropertyBoolean('RgbwCapable',false);
 		$this->RegisterPropertyBoolean('RgbwProtocol',false);
@@ -40,21 +41,29 @@ class WifiBulbControler extends IPSModule {
     }
    	public function MessageSink($TimeStamp, $SenderID, $Message, $Data){
     	if($Message==KR_READY){
-    		$this->StartTimer(random_int(2000,4000));
+  			$options=self::REQUEST_STATE;
+   			if($this->ReadPropertyBoolean('AutoUpdateDeviceTime'))$options|=self::REQUEST_TIME;
+    		$this->StartTimer(random_int(2000,4000),$options);
 			$this->RegisterMessage($this->InstanceID,FM_CONNECT);
 			$this->RegisterMessage($this->InstanceID,FM_DISCONNECT);
     	}
     	elseif($Message==IM_CHANGESTATUS){
    			$this->SendDebug(__FUNCTION__,"Parent status: ".$Data[0],0);
    			$this->UpdateOfflineName($Data[0]!=102);
-   			if($Data[0]==102)$this->StartTimer(1000);
+   			if($Data[0]==102){
+   				$options=self::REQUEST_STATE;
+   				if($this->ReadPropertyBoolean('AutoUpdateDeviceTime'))$options|=self::REQUEST_TIME;
+   				$this->StartTimer(1000,$options);
+   			}
     	}
     	elseif($Message==FM_CONNECT){
     		$this->SetBuffer('LastConnectionID',$Data[0]);
 			$this->RegisterMessage($Data[0],IM_CHANGESTATUS);
 			$this->SendDebug(__FUNCTION__,"Connect: ".$Data[0],0);
 			$this->UpdateOfflineName(!$this->Ready());
-    		$this->StartTimer(1000);
+   			$options=self::REQUEST_STATE;
+   			if($this->ReadPropertyBoolean('AutoUpdateDeviceTime'))$options|=self::REQUEST_TIME;
+			$this->StartTimer(1000,$options);
     	}
     	elseif($Message==FM_DISCONNECT){
     		if($ID=intval($this->GetBuffer('LastConnectionID'))){
@@ -111,6 +120,7 @@ class WifiBulbControler extends IPSModule {
     			break;
     		case 'SAVE_TIMER' : $this->SetTimerConfig($Value);	break;
     		case 'SAVE_TIMERLIST' : $this->SendTimerList(); break;
+    		case 'SYNC_TIME': $this->SendDeviveClock();break;
     		default: IPS_LogMessage(IPS_GetName( $this->InstanceID),"Unknown Action \"$Ident\" received! $Value: $Value");	
 		}
 	}
@@ -160,14 +170,19 @@ class WifiBulbControler extends IPSModule {
     	$f=json_decode(file_get_contents(__DIR__.'/form.json'));
 		$time=$this->ReadAttributeString('DeviceTime');
 		$f->actions[1]->items[0]->caption=$time?$this->Translate('Device time').': '.$time : $this->Translate("Device time is loading...");
-    	$options = self::REQUEST_TIME;
+    	$f->actions[1]->items[2]->confirm=$this->Translate("Sync Devicetime with PC Time?");
+		
+		$options = self::REQUEST_TIME;
 		if($this->ReadPropertyBoolean('EnableTimerList')){
 			if($this->ReadPropertyBoolean('AutoUpdateTimerList'))$options|=self::REQUEST_TIMERS;
 			else $options|= self::REQUEST_FORMUPDATE;
 			$f->actions[0]->items[0]->values=$this->LoadTimerList();
     		$i=$f->actions[0]->items[1]->items;
-    		$i[count($i)-1]->visible=$this->ReadAttributeBoolean('TimerlistChanged');
-    	}
+    		$index = count($i)-1;
+    		$i[$index]->visible=$this->ReadAttributeBoolean('TimerlistChanged');
+    		$i[$index]->confirm=$this->Translate('Transfer Timerlist to device?');
+			    		
+		}
     	else {
     		array_shift($f->actions);
     	}
@@ -612,7 +627,7 @@ class WifiBulbControler extends IPSModule {
 	private function SendRequest(int $Options=0){
 		$sl=0;$ok=true;
 		$Options|=intval($this->GetBuffer('RequestOptions'));
-		$this->SetBuffer('RequestOptions',0);
+		
 		if($ok && ($Options==0 || $Options&self::REQUEST_STATE)){
 			$ok=$this->SendData($this->ReadPropertyInteger('Protocol')==self::PROTOCOL_LEDENET_ORIGINAL?[0xef, 0x01, 0x77]:[0x81, 0x8a, 0x8b]);
 			$sl=200;
@@ -632,6 +647,7 @@ class WifiBulbControler extends IPSModule {
 			IPS_Sleep(1000);
 			$this->SetFormField('TimerID', 'value', 0);
 		}
+		if($ok)$this->SetBuffer('RequestOptions',0);
 		return $ok;
 	}
    	private function ProcessRawSwitch(array $raw){
@@ -766,6 +782,14 @@ class WifiBulbControler extends IPSModule {
 		$dt->setDate($year, $month, $day);
 		$dt->setTime($hour, $minute,$second);
 		$time = $dt->getTimestamp();
+		if($this->ReadPropertyBoolean('AutoUpdateDeviceTime')){
+			$delta = time() - $time;
+			if(abs($delta) > 60){ // Max 1 minute differenz 
+				$this->SendDeviveClock();
+			}
+		}
+		
+		
 		$this->WriteAttributeString('DeviceTime', $time=date($this->Translate('Y-d-m H:i').':s',$time ));
        	$this->UpdateFormField('DeviceTime', 'caption',$this->Translate('Device time').': '.$time);
 //       	if(!$this->ReadPropertyBoolean('AutoUpdateTimerList'))$this->SetFormField('TimerID', 'value', 0);
@@ -796,7 +820,8 @@ class WifiBulbControler extends IPSModule {
     #  Device Timer
 	################################################################
     private function SendDeviveClock(){
-        $msg = [0x10, 0x14,date('Y')-2000,data('m'),date('d'),date('H'),date('i'),date('s'),date('N'),0x00,0x0f];
+		$this->SendDebug(__FUNCTION__,"execute",0);		
+    	$msg = [0x10, 0x14,date('Y')-2000,date('m'),date('d'),date('H'),date('i'),date('s'),date('N'),0x00,0x0f];
         $this->SendData($msg);
     }
 	private function LoadTimerList(){
@@ -863,10 +888,12 @@ class WifiBulbControler extends IPSModule {
         	return;
         }
         if($this->SendData($msg)){
-         	$this->SetBuffer('CacheTimer', '');
+         	$this->UpdateFormField('TransferBtn', 'visible', false);
+        	$this->SetBuffer('CacheTimer', '');
  			$this->WriteAttributeString('TimerList', $values=json_encode($timer_list));
  			$this->UpdateFormField('TimerList', 'values', $values);
  			$this->SetFormField('TimerID', 'value', 0);
+ 			
          }
 	}
    	private function GetTimerDate(array $raw){
@@ -967,23 +994,27 @@ class WifiBulbControler extends IPSModule {
   		$saved = $item->data;
         if ($Active){
 	        $item->data[0] = 0xf0;
-	        
-	        if($time=json_decode($Time,true)){
+	        $is_sun=(bool)array_search($Mode,self::BuildInTimer);
+	        $is_preset=(bool)array_search($Mode,self::BuildInTimer);
+	        if($is_sun){
+	        	list($item->data[1],$item->data[2],$item->data[3],$item->data[4],$item->data[5])=[0,0,0,0,0];
+	        }
+	        if(!$is_sun && ($time=json_decode($Time,true))){
 		        $item->data[4] = $time['hour'];
 		        $item->data[5] = $time['minute'];
 	        } else list($item->data[4],$item->data[5])=[0,0];
-		   		
-	       
 	        $repeat_mask = 0;
-	        if($Mo)$repeat_mask|=self::BuilInDayMask['Mo'];
-	        if($Tu)$repeat_mask|=self::BuilInDayMask['Tu'];
-	        if($We)$repeat_mask|=self::BuilInDayMask['We'];
-	        if($Th)$repeat_mask|=self::BuilInDayMask['Th'];
-	        if($Fr)$repeat_mask|=self::BuilInDayMask['Fr'];
-	        if($Sa)$repeat_mask|=self::BuilInDayMask['Sa'];
-	        if($Su)$repeat_mask|=self::BuilInDayMask['Su'];
-	        $item->data[7] = $repeat_mask;
-	        if(!$repeat_mask){
+	        if(!$is_sun){
+		        if($Mo)$repeat_mask|=self::BuilInDayMask['Mo'];
+		        if($Tu)$repeat_mask|=self::BuilInDayMask['Tu'];
+		        if($We)$repeat_mask|=self::BuilInDayMask['We'];
+		        if($Th)$repeat_mask|=self::BuilInDayMask['Th'];
+		        if($Fr)$repeat_mask|=self::BuilInDayMask['Fr'];
+		        if($Sa)$repeat_mask|=self::BuilInDayMask['Sa'];
+		        if($Su)$repeat_mask|=self::BuilInDayMask['Su'];
+		        $item->data[7] = $repeat_mask;
+	        }
+	        if(!$repeat_mask && !$is_sun){
 		        if($date=json_decode($Date,true)){
 			        $item->data[1] = $date['year'] >= 2000 ? $date['year'] - 2000 : $date['year'];
 			        $item->data[2] = $date['month'];
@@ -991,27 +1022,33 @@ class WifiBulbControler extends IPSModule {
 			    }
 	        	else list($item->data[1],$item->data[2],$item->data[3])=[0,0,0];
 	        }
-	        
+	        if(!$is_sun && array_sum(array_slice($item->data,1,7))==0){ // Timer Empty
+	        	$item->data[0] = 0x0f;
+	        	$Power=false;
+	        	$this->SetBuffer('CacheTimer','');
+	        	$this->UpdateFormField('Active', 'value', false); 
+	        	$this->SetFormField('Active', 'value', false); 
+	        }
 	        $item->expired=$this->IsTimerExpired($item->data);
 			if($item->expired)$item->rowColor=self::COLOR_EXPIRED;
 			elseif($item->data[0]!== 0xf0)$item->rowColor=self::COLOR_EMPTY;
 			else $item->rowColor=self::COLOR_ACTIVE;
-		   	
 	        if ($Power){
 		        $item->data[13] = 0xf0;
 		        if($Mode == 0x61){ // Color
 		        	list($item->data[9],$item->data[10],$item->data[11]) = colorsys::int_to_rgb($Color);
 		        }
-		        elseif(array_search($Mode, self::BuildInPresets)){
+		        elseif($is_sun){
 		           	$item->data[9] = $Speed;
 		            $item->data[10] = 0;
 		            $item->data[11] = 0;
+		        
 		        }
-		        elseif(array_search($Mode,self::BuildInTimer)){
+		        elseif($is_preset){
 		           	$item->data[9] = $Duration;
 		            $item->data[10] = $WWStart;
 		            $item->data[11] = $WWEnd;
-		            list($item->data[1],$item->data[2],$item->data[3],$item->data[4],$item->data[5])=[0,0,0,0,0];
+		            
 		        }
 		        $item->data[8] = $Mode;
 		 		$item->data[12] = $Mode==0xFE ?  $WW : 0xFF;
@@ -1020,6 +1057,8 @@ class WifiBulbControler extends IPSModule {
 	        	$item->data[13] = 0x0f;
         }
         else $item->data[0] = 0x0f;
+        
+        $this->SendDebug(__FUNCTION__, join('',array_map(function($b){return chr($b);},$item->data)), 1);
         if($item->data!=$saved){
         	$this->WriteAttributeBoolean('TimerlistChanged',true);
         	$item->rowColor=self::COLOR_CHANGED;
