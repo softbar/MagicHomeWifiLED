@@ -26,7 +26,7 @@
         
 	],
    	"actions":[
-       	{ "type": "ExpansionPanel", "caption": "Timer Settings", "expanded":true, "items": [
+       	{ "type": "ExpansionPanel", "caption": "Timer Settings", "items": [
         		{ "type":"List", "name":"TimerList", "rowCount":6,"columns": [
         				{"name":"id",  		"caption": "ID", 		"width":"50" },
         				{"name":"info",  	"caption": "Information",		"width":"auto" }
@@ -103,8 +103,8 @@
         },
         { "type": "ExpansionPanel", "caption": "Device Time Settings", "items": [
    				{"type":"Label",	"name":"DeviceTime", "caption":"Device time is loading..." },
-				{"type":"Button","caption":"Read Device Time","onClick":"IPS_RequestAction($id,'UPDATE',2);echo 'OK';"},
-				{"type":"Button","caption":"Sync Device Time with pc","onClick":"IPS_RequestAction($id,'SYNC_TIME',true);echo 'OK';"}
+				{"type":"Button","caption":"Read Device time","onClick":"IPS_RequestAction($id,'UPDATE',2);echo 'OK';"},
+				{"type":"Button","caption":"Sync Device time with pc","onClick":"IPS_RequestAction($id,'SYNC_TIME',true);echo 'OK';"}
         	]
         },	
  	 	{"type":"Button", "caption":"Refresh now", "onClick":"IPS_RequestAction($id,'UPDATE',0);"}

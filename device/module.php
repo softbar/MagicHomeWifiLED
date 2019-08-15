@@ -50,7 +50,6 @@ class WifiBulbControler extends IPSModule {
    			$this->SendDebug(__FUNCTION__,"Connect Parent: ".$Data[0],0);
     		$this->SetBuffer('LastConnectionID',$Data[0]);
 			$this->RegisterMessage($Data[0],IM_CHANGESTATUS);
-			$this->SendDebug(__FUNCTION__,"Connect: ".$Data[0],0);
 			$this->UpdateOfflineName(!$this->Ready());
    			$options=self::REQUEST_STATE;
    			if($this->ReadPropertyBoolean('AutoUpdateDeviceTime'))$options|=self::REQUEST_TIME;
@@ -169,7 +168,7 @@ class WifiBulbControler extends IPSModule {
     	$f=json_decode(file_get_contents(__DIR__.'/form.json'));
 		$time=$this->ReadAttributeString('DeviceTime');
 		$f->actions[1]->items[0]->caption=$time?$this->Translate('Device time').': '.$time : $this->Translate("Device time is loading...");
-    	$f->actions[1]->items[2]->confirm=$this->Translate("Sync Devicetime with PC Time?");
+    	$f->actions[1]->items[2]->confirm=$this->Translate("Sync Device time with PC time?");
 		
 		$options = self::REQUEST_TIME;
 		if($this->ReadPropertyBoolean('EnableTimerList')){
@@ -209,7 +208,7 @@ class WifiBulbControler extends IPSModule {
 		if($Field == 'TimerID' && $Arguments=='value'){
     		if($data->id!=$Value){
     			$id_changed=true;
-    			// here insert Save CacheTimer to timerliest
+    			
     			$timer_list=$this->LoadTimerList();
     			$data->raw= $timer_list[$Value]->data;
 	    		$data->id=$Value;
@@ -228,9 +227,14 @@ class WifiBulbControler extends IPSModule {
 			$bit = self::BuilInDayMask[$Field];
 			if($Value)$data->raw[7]|=$bit;
 			else $data->raw[7]^=$bit;
+			$this->UpdateFormField('Date', 'visible', $data->raw[7]==0);
+			$this->SetBuffer('CacheTimer',json_encode($data));
+			return;
 		}
 		elseif($Field=='Color'){
 			list($data->raw[9],$data->raw[10],$data->raw[11]) = colorsys::int_to_rgb($Value);
+			$this->SetBuffer('CacheTimer',json_encode($data));
+			return;
 		}
     	$repeat_mask=0;
 		$is_active=$data->raw[0] == 0xf0;
