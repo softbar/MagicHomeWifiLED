@@ -26,10 +26,9 @@ class WifiBulbControler extends IPSModule {
     	$this->CreateProfiles();
     	// Events
     	$this->RegisterMessage(0, IPS_KERNELMESSAGE);
-    	if(IPS_GetKernelRunlevel() == KR_READY){
-			$this->RegisterMessage($this->InstanceID,FM_CONNECT);
-			$this->RegisterMessage($this->InstanceID,FM_DISCONNECT);
-    	}
+		$this->RegisterMessage($this->InstanceID,FM_CONNECT);
+		$this->RegisterMessage($this->InstanceID,FM_DISCONNECT);
+    	
     	// Default Values
 		$this->SetValue('POWER', false);
 		$this->SetValue('COLOR', 0);
@@ -57,6 +56,7 @@ class WifiBulbControler extends IPSModule {
    			}
     	}
     	elseif($Message==FM_CONNECT){
+   			$this->SendDebug(__FUNCTION__,"Connect Parent: ".$Data[0],0);
     		$this->SetBuffer('LastConnectionID',$Data[0]);
 			$this->RegisterMessage($Data[0],IM_CHANGESTATUS);
 			$this->SendDebug(__FUNCTION__,"Connect: ".$Data[0],0);
@@ -66,6 +66,8 @@ class WifiBulbControler extends IPSModule {
 			$this->StartTimer(1000,$options);
     	}
     	elseif($Message==FM_DISCONNECT){
+   			$this->SendDebug(__FUNCTION__,"Disconnet Parent ",0);
+    		
     		if($ID=intval($this->GetBuffer('LastConnectionID'))){
 				$this->UnRegisterMessage($ID,IM_CHANGESTATUS);
     			$this->SendDebug(__FUNCTION__,"DisConnect: ".$ID,0);
