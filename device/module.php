@@ -28,13 +28,6 @@ class WifiBulbControler extends IPSModule {
     	$this->RegisterMessage(0, IPS_KERNELMESSAGE);
 		$this->RegisterMessage($this->InstanceID,FM_CONNECT);
 		$this->RegisterMessage($this->InstanceID,FM_DISCONNECT);
-    	
-    	// Default Values
-		$this->SetValue('POWER', false);
-		$this->SetValue('COLOR', 0);
-		$this->SetValue('BRIGHTNESS', 0);
-		$this->SetValue('MODE', 0);
-		$this->SetValue('SPEED', 100);
 		// Connect
 		$this->ConnectParent('{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}');
     }
@@ -43,8 +36,6 @@ class WifiBulbControler extends IPSModule {
   			$options=self::REQUEST_STATE;
    			if($this->ReadPropertyBoolean('AutoUpdateDeviceTime'))$options|=self::REQUEST_TIME;
     		$this->StartTimer(random_int(2000,4000),$options);
-			$this->RegisterMessage($this->InstanceID,FM_CONNECT);
-			$this->RegisterMessage($this->InstanceID,FM_DISCONNECT);
     	}
     	elseif($Message==IM_CHANGESTATUS){
    			$this->SendDebug(__FUNCTION__,"Parent status: ".$Data[0],0);
@@ -78,6 +69,10 @@ class WifiBulbControler extends IPSModule {
     }
     public function ApplyChanges(){
     	parent::ApplyChanges();
+		if(!@$this->GetIDForIdent('POWER'))$this->SetValue('POWER', false);
+		if(!@$this->GetIDForIdent('BRIGHTNESS'))$this->SetValue('BRIGHTNESS', 0);
+		if(!@$this->GetIDForIdent('MODE'))$this->SetValue('MODE', 0);
+		if(!@$this->GetIDForIdent('SPEED'))$this->SetValue('SPEED', 100);
 		$show = $this->ReadPropertyInteger('ShowColorMode');
 		$rgb  = @$this->GetIDForIdent('COLOR')? colorsys::int_to_rgb($this->GetValue('COLOR')):
     			[(int)@$this->GetValue('RED'),(int)@$this->GetValue('GREEN'),(int)@$this->GetValue('BLUE')];
@@ -100,7 +95,9 @@ class WifiBulbControler extends IPSModule {
 		    if(!@$this->GetIDForIdent('BLUE'))$this->SetValue('BLUE', $rgb[2]);
 		}
     	if(IPS_GetKernelRunlevel() == KR_READY){
-	     	$this->StartTimer(500);
+   			$options=self::REQUEST_STATE;
+   			if($this->ReadPropertyBoolean('AutoUpdateDeviceTime'))$options|=self::REQUEST_TIME;
+    		$this->StartTimer(500,$options);
      	}
     }
  	public function RequestAction($Ident, $Value){
@@ -387,8 +384,8 @@ class WifiBulbControler extends IPSModule {
     			case 'BRIGHTNESS': $id=$this->RegisterVariableInteger($Ident, $this->Translate('Brightness'), 	'~Intensity.255', 5);break;
     			case 'WARM_WHITE': $id=$this->RegisterVariableInteger($Ident, $this->Translate('White'), 		'~Intensity.255', 6);break;
     			case 'COLD_WHITE': $id=$this->RegisterVariableInteger($Ident, $this->Translate('Coldwhite'), 	'~Intensity.255', 7);break;
-    			case 'SPEED' 	 : $id=$this->RegisterVariableInteger($Ident, $this->Translate('Speed'), 		'~Intensity.100', 8);break;
-    			case 'MODE' 	 : $id=$this->RegisterVariableInteger($Ident, $this->Translate('Mode'),			 'Presets.MHC', 9);break;
+    			case 'SPEED' 	 : $id=$this->RegisterVariableInteger($Ident, $this->Translate('Speed'), 		'~Intensity.100', 9);break;
+    			case 'MODE' 	 : $id=$this->RegisterVariableInteger($Ident, $this->Translate('Mode'),			 'Presets.MHC', 8);break;
     		}
     		if($id)$this->EnableAction($Ident);
     	}
