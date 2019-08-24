@@ -59,10 +59,11 @@ Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Gerät
 
 Das WifiModul **muss** zuerst **mit** der zugehörigen **APP** im WLAN **eingebunden werden**. Erst **dann** wird es vom Discover Modul **erkannt**.<br>
 ```
-Beim einrichten sollte man **darauf achten**, falls man **2+5G Wifi** auf der **gleichen Sid** hat,<br>
-das **5G Wifi** während der Einrichtung auf dem Smartphone (hab ein Nexus6 mit Android 9)
-auf dem Router zu **deaktivieren** da es sonst Probleme beim einrichten geben kann.<br>
-Nach der Einrichtung kann das **5G** wieder problemlos **aktiviert werden**.
+TIPP
+Beim einrichten muss man darauf achten, falls man 2+5G Wifi auf der gleichen Sid hat,
+dass 5G während der Einrichtung auf dem Smartphone (hab ein Nexus6 mit Android 9)
+auf dem Router zu deaktivieren da es sonst Probleme beim einrichten geben kann.
+Nach der Einrichtung kann das 5G wieder problemlos aktiviert werden.
 ```  
 
 
