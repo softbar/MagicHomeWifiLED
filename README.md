@@ -60,8 +60,10 @@ Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Gerät
 Das Wifi Gerät **muss** zuerst **mit** der zugehörigen **APP** im WLAN **eingebunden werden**. Erst **dann** wird es vom Discover Modul **erkannt**!
 ```
 TIPP
-Da die mir bekannten Wifi Geräte nur das 2G Wifi unterstützen sollte man beim erstmaligen einrichten mit der Andoid/Apple APP auf folgendes achten:
-Falls das 2G + 5G Wifi auf der gleichen SID funkt muss das 5G während der Einrichtung auf dem Smartphone , auf dem Router deaktiviert werden da es sonst Probleme beim erkennen bzw. einrichten des Wifi Gerätes geben kann.
+Da die mir bekannten Wifi Geräte nur das 2G Wifi unterstützen muss man beim erstmaligen einrichten
+mit der Andoid/Apple APP auf folgendes achten:
+Falls das 2G + 5G Wifi auf der gleichen SID funkt sollte das 5G während der Einrichtung auf dem Router
+deaktiviert werden da es sonst Probleme beim erkennen bzw. einrichten des Wifi Gerätes geben kann.
 Nach der Einrichtung kann das 5G wieder problemlos auf dem Router aktiviert werden.
 ```  
 
