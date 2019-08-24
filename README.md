@@ -1,36 +1,54 @@
-[![Version](https://img.shields.io/badge/Symcon-PHPModul-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-[![Version](https://img.shields.io/badge/Symcon%20Version-5.0%20%3E-green.svg)](https://www.symcon.de/forum/threads/38222-IP-Symcon-5-0-verf%C3%BCgbar)
-[![Version](https://img.shields.io/badge/Code-PHP-blue.svg)](https://www.symcon.de/forum/threads/38222-IP-Symcon-5-0-verf%C3%BCgbar)
-
 
 # MagicHomeWifiLED
- IPS Modul zur Steuerung des Magic Home Wifi RGB/w Controllers
-
-<B>Benötigt IP-Symcon 5.2</B>
+ 
+Modul für IP-Symcon ab Version 5.2  zur Steuerung des Magic Home Wifi RGB/w Controllers oder kompatible
 
 
 # Für das Gerät
 
 Magic Mini RGB Wifi Controller für LED Strip/Streifen Funktioniert mit Alexa, Google Home, IFTTT, und Siri IR Fernbedienung Steuerung, 16 Mio Farben, 20 Dynamische Modi 
 
+# Anleitung
 
-# Funktionsübersicht
-Steuern von
+**Inhaltsverzeichnis**
+
+1. [Steuerung](#1-steuerung)  
+2. [Extras](#2-extras)
+3. [Unterstüzte Protokolle](#3-protokolle)
+4. [Module](#4-module)
+
+
+
+## 1. Steuerung
 - An/Aus
 - Farbe
 - Helligkeit
 - Weiß Kanal
 - Extra Weiß Kanal
-- Farbmodus [ Geräte Presets / Dynamische Modi]
+- Farbmodus 20 Dynamische Modi
+- Farbmodus Geschwindigkeit
 
-Bearbeiten von
-- Geräte Timern [1-6]
-- Geräte Uhrzeit
+## 2. Extras
+- Bearbeiten von Geräte Timern [1-6]
+    - löschen von abgelaufenen Timern
+    - erstellen oder ändern von Geräte timern
+    - lesen und schreiben der Geräte Timerliste
+- Geräte Uhrzeit lesen/setzen
+    - Unterstützt automatisches aktuallieren der Gerätezeit nach stromausfall
+- Arbeitet mit Rückkanal
+    - dadurch werden Änderungen erkannt die über die Andoid/Apple APP vorgenommen werden
 
-Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Geräten, siehe oben, von mir getestet;-)
+## 3. Protokolle
+- LEDNET Original
+- LEDNET
+- MagicHome
 
-# Enthalten
+## 4. Module
 - Discover Modul zum finden der Geräte im Netzwerk
 - Steuerung Modul zur Steuerung des Gerätes
 - Sprachen EN, DE
+
+
+Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Geräten, siehe oben, von mir getestet;-)
+
 
