@@ -40,20 +40,30 @@ Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Gerät
     - löschen von abgelaufenen Timern
     - erstellen oder ändern von Geräte timern
     - lesen und schreiben der Geräte Timerliste
+    - die Timerliste wird permanent auf dem Gerät gespeichert und arbeitet unabhängig von IPS , vorausgesetzt die Gerätezeit ist aktuell.
 - Geräte Uhrzeit lesen/setzen
     - Unterstützt automatisches aktuallieren der Gerätezeit nach stromausfall
 - Arbeitet mit Rückkanal
-    - dadurch werden Änderungen erkannt die über die Andoid/Apple APP vorgenommen werden
+    - Änderungen werden dadurch Zeitnah erkannt auch wenn das Gerät über die Andoid/Apple APP gesteuert wird
+- Option zur Auswahl ob Daten dauerhaft auf dem Gerät gespeichert werden sollen
+    - Daten wie Farbe, Weißkannal werden auf dem Gerät permanent gespeichert und bleiben auch nach einem Stromausfall erhalten.
+- Manuelle Protokoll-Type Auswahl
+- Manuelle RGB/w Protokoll Option
+    - Abhängig vom Protokoll-Type (für LEDNET Original Aus, alle anderen Ein)
+- Manuelle CheckSum Option
+    - Einige Geräte benötigen eine Check Summe der übertragenen Daten
 
 ## 3. Protokolle
-- LEDNET Original
-- LEDNET
 - MagicHome
+- LEDNET
+- LEDNET Original
+
 
 ## 4. Module
 - Discover Modul zum finden der Geräte im Netzwerk
 - Steuerung Modul zur Steuerung des Gerätes
 - Sprachen EN, DE
+
 
 ## 5. Installation
 
