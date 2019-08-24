@@ -1,5 +1,5 @@
 [![Version](https://img.shields.io/badge/Symcon-PHPModul-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-[![Code](https://img.shields.io/badge/Code-PHP-blue.svg)](https://github.com/softbar/MagicHomeWifiLED#4-module)
+[![Code](https://img.shields.io/badge/Code-PHP-blue.svg)](#-Anleitung)
 
 # MagicHomeWifiLED
  
