@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__.'/../libs/utils.inc';
 class WifiBulbControler extends IPSModule {
 	################################################################
 	#  Public Hidden Methods
@@ -109,7 +110,11 @@ class WifiBulbControler extends IPSModule {
      		case 'BRIGHTNESS': $this->SetBrightness((int)$Value,true);break;
     		case 'WARM_WHITE': $this->SetWhite((int)$Value,true); break;
     		case 'COLD_WHITE': $this->SetColdWhite((int)$Value,true); break;
-    		case 'MODE' 	 : $this->RunProgram($Value, $this->GetSpeed());	break;
+    		case 'MODE' 	 : $this->RunProgram($Value, $this->GetSpeed());break;
+    		case 'SPEED'	 : 
+    			$this->SetValue('SPEED', (int)$Value);
+    			$this->RunProgram($this->GetValue('MODE'),(int)$Value);
+    			break; 
     		case 'UPDATE'	 : 
     			if(!$this->Ready())break;
     			if($Value<2)$this->SendRequest();
@@ -190,7 +195,7 @@ class WifiBulbControler extends IPSModule {
     public function Destroy(){
     	parent::Destroy();
     	if(count(IPS_GetInstanceListByModuleID("{5638FDC0-C110-WIFI-MAHO-201905120WBC}"))==0){
-    		@IPS_DeleteVariableProfile('Presets.MHC');
+    		@IPS_DeleteVariableProfile('Presets.WBC');
     	}
     }
     ################################################################
@@ -389,7 +394,7 @@ class WifiBulbControler extends IPSModule {
     			case 'WARM_WHITE': $id=$this->RegisterVariableInteger($Ident, $this->Translate('White'), 		'~Intensity.255', 6);break;
     			case 'COLD_WHITE': $id=$this->RegisterVariableInteger($Ident, $this->Translate('Coldwhite'), 	'~Intensity.255', 7);break;
     			case 'SPEED' 	 : $id=$this->RegisterVariableInteger($Ident, $this->Translate('Speed'), 		'~Intensity.100', 9);break;
-    			case 'MODE' 	 : $id=$this->RegisterVariableInteger($Ident, $this->Translate('Mode'),			 'Presets.MHC', 8);break;
+    			case 'MODE' 	 : $id=$this->RegisterVariableInteger($Ident, $this->Translate('Mode'),			 'Presets.WBC', 8);break;
     		}
     		if($id)$this->EnableAction($Ident);
     	}
@@ -989,7 +994,7 @@ class WifiBulbControler extends IPSModule {
     #  Private Utils 
 	################################################################
     private function CreateProfiles(){
-		$profile = 'Presets.MHC';
+		$profile = 'Presets.WBC';
 		$colors=[0x000000,0xff0000,0x00ff00,0x0000ff,0xffff00,0x00ffff,0xff00ff,0xf0f000,0xf000f0,0x00f0f0,0xa0a0a0,0xff0000,0x00ff00,0x0000ff,0xffff00,0x00ffff,0xff00ff,0xffffff,0xa0a0a0];
         @IPS_CreateVariableProfile($profile, 1);
 		IPS_SetVariableProfileAssociation($profile, 0, "Manuell", "", 0x000000);
@@ -1077,73 +1082,5 @@ class WifiBulbControler extends IPSModule {
 	];
 	private const Weekdays = 0x02|0x04|0x08|0x10|0x20;
 	private const Weekend  = 0x40|0x80;
-}
-class utils {
-	private const max_delay = 0x1f;
-	public static function delayToSpeed($delay){
-        # speed is 0-100, delay is 1-31
-        # 1st translate delay to 0-30
-        $delay = $delay -1;
-        if ($delay > self::max_delay - 1 )
-            $delay = self::max_delay - 1;
-        if ($delay < 0)
-            $delay = 0;
-        $inv_speed = (int)($delay * 100)/(self::max_delay - 1);
-        $speed =  100-$inv_speed;
-        return $speed;
-	}
-
-	public static function speedToDelay($speed){
-        # speed is 0-100, delay is 1-31
-        if ($speed > 100)
-            $speed = 100;
-        if ($speed < 0)
-            $speed = 0;
-        $inv_speed = 100-$speed;
-        $delay = (int)($inv_speed * (self::max_delay-1))/100;
-        # translate from 0-30 to 1-31
-        $delay = $delay + 1;
-        return $delay;
-	}
-
-	public static function byteToPercent($byte){
-        if ($byte > 255)
-            $byte = 255;
-        if ($byte < 0)
-            $byte = 0;
-        return (int)($byte * 100)/255;
-	}
-
-	public static function percentToByte($percent){
-        if ($percent > 100)
-            $percent = 100;
-        if ($percent < 0)
-            $percent = 0;
-        return (int)($percent * 255)/100;
-	}
-
-}
-class colorsys {
-	public static function int_to_rgb($Color){
-		return [($Color >> 16) & 0xFF,
-				($Color >> 8) & 0xFF,
-				$Color & 0xFF	
-		];
-	}
-	public static function rgb_to_int($r,$g,$b){
-		return ($r << 16) + ($g << 8) + $b;
-	}
-	public static function calculate_brightness($r,$g,$b,$Level){
-		$rgb=[$r,$g,$b];
-		$maxc = max($rgb);
-		if($maxc==0)return [$Level,$Level,$Level];
-		
-		if($maxc==$Level) return $rgb;
-		for($j=0;$j<3;$j++){
-			$rgb[$j]=(int)(round($rgb[$j]/$maxc*$Level));
-			if($rgb[$j]>255)$rgb[$j]=255;
-		}
-		return $rgb;
-	}
 }
 ?>

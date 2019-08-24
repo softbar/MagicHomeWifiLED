@@ -23,3 +23,4 @@ $RECYCLE.BIN/
 # =========================
 *.doxyfile
 tests/*
+group/*
