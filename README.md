@@ -1,5 +1,5 @@
 [![Version](https://img.shields.io/badge/Symcon-PHPModul-red.svg)](#anleitung)
-[![Version](https://img.shields.io/badge/Symcon%20Version-5.2%20%3E-green.svg)](#)
+[![Version](https://img.shields.io/badge/Symcon-Version%20%3E=%205.2-green.svg)](#)
 [![Code](https://img.shields.io/badge/Code-PHP-blue.svg)](#anleitung)
 
 # Magic Home Wifi LED
