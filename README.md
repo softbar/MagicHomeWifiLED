@@ -1,3 +1,5 @@
+[![Version](https://img.shields.io/badge/Symcon-PHPModul-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
+![Code](https://img.shields.io/badge/Code-PHP-blue.svg)
 
 # MagicHomeWifiLED
  
@@ -16,11 +18,11 @@ Magic Mini RGB Wifi Controller für LED Strip/Streifen Funktioniert mit Alexa, G
 2. [Extras](#2-extras)
 3. [Unterstüzte Protokolle](#3-protokolle)
 4. [Module](#4-module)
-
-
+5. [Installation](#5-installation)
+6. [Anmerkung](#6-anmerkung)
 
 ## 1. Steuerung
-- An/Aus
+- An / Aus
 - Farbe
 - Helligkeit
 - Weiß Kanal
@@ -48,6 +50,9 @@ Magic Mini RGB Wifi Controller für LED Strip/Streifen Funktioniert mit Alexa, G
 - Steuerung Modul zur Steuerung des Gerätes
 - Sprachen EN, DE
 
+## 5. Installation
+
+## 6. Anmerkung
 
 Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Geräten, siehe oben, von mir getestet;-)
 
