@@ -10,7 +10,7 @@ Modul für IP-Symcon ab Version 5.2  zur Steuerung des Magic Home Wifi RGB/w Con
 
 Magic Mini RGB Wifi Controller für LED Strip/Streifen Funktioniert mit Alexa, Google Home, IFTTT, und Siri IR Fernbedienung Steuerung, 16 Mio Farben, 20 Dynamische Modi 
 
-#Anleitung
+# Anleitung
 
 **Inhaltsverzeichnis**
 
