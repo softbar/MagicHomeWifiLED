@@ -1,5 +1,5 @@
-[![Version](https://img.shields.io/badge/Symcon-PHPModul-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-[![Code](https://img.shields.io/badge/Code-PHP-blue.svg)](#-anleitung)
+[![Version](https://img.shields.io/badge/Symcon-PHPModul-red.svg)](#anleitung)
+[![Code](https://img.shields.io/badge/Code-PHP-blue.svg)](#anleitung)
 
 # MagicHomeWifiLED
  
@@ -10,7 +10,7 @@ Modul für IP-Symcon ab Version 5.2  zur Steuerung des Magic Home Wifi RGB/w Con
 
 Magic Mini RGB Wifi Controller für LED Strip/Streifen Funktioniert mit Alexa, Google Home, IFTTT, und Siri IR Fernbedienung Steuerung, 16 Mio Farben, 20 Dynamische Modi 
 
-## Anleitung
+#Anleitung
 
 **Inhaltsverzeichnis**
 
