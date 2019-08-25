@@ -7,9 +7,10 @@ Module für IP-Symcon ab **Version 5.2**  zur Steuerung des Magic Home Wifi RGB/
 
 Da die neuen **dynamischen Formulare** benutzt werden ist eine vollständige **Konfiguration** nur über das **WebFront** möglich.
 
-
 # Getestet mit
-Magic Mini RGB/wifi Controller für LED Strip/Streifen. Funktioniert mit Alexa, Google Home, IFTTT, und Siri IR Fernbedienung Steuerung, 16 Mio Farben, 20 Dynamische Modi
+Magic Mini RGB/w Wifi Controller für LED Strip/Streifen. Funktioniert mit Alexa, Google Home, IFTTT, und Siri IR Fernbedienung Steuerung, 16 Mio Farben, 20 Dynamische Modi
+
+![Magic Mini RGB/w Wifi Controller](img/tested1.png?raw=true "Magic Mini RGB/w Wifi Controller")
 
 # Anleitung
 Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Geräten, siehe oben, von mir getestet;-)
@@ -65,7 +66,10 @@ Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Gerät
 
 ## 5. Installation
 
-Ein neuer Controller muss zuerst auf dem Smartphone mit der zugehörigen APP in deinem Netzwerk eingebunden werden. Erst nach dem erstmaligen einrichten wird der Controller vom Doscovermodul erkannt.
+**a. Controler im Netzwerk einrichten**
+
+Ein neuer Controller muss **zuerst** auf dem Smartphone mit der zugehörigen APP **in** deinem **Netzwerk eingebunden** werden. Erst nach dem erstmaligen einrichten wird der Controller vom Discovery Modul erkannt.
+
 ```
 TIPP
 Da die mir bekannten Wifi Geräte nur das 2G Wifi unterstützen muss man beim erstmaligen einrichten
@@ -73,8 +77,53 @@ mit der Andoid/Apple APP auf folgendes achten:
 Falls das 2G + 5G Wifi auf der gleichen SID funkt sollte das 5G während der Einrichtung auf dem Router
 deaktiviert werden da es sonst Probleme beim erkennen bzw. einrichten des Wifi Gerätes geben kann.
 Nach der Einrichtung kann das 5G wieder problemlos auf dem Router aktiviert werden.
-```  
+```
 
+**b. Installieren über Modules Instanz**
+
+Die Webconsole von IP-Symcon mit _http://{IP-Symcon IP}:3777/console/_ öffnen. 
+
+Anschließend den Objektbaum _Öffnen_.
+
+![Objektbaum](img/objektbaum.png?raw=true "Objektbaum")	
+
+Die Instanz 'Modules' unterhalb von Kerninstanzen im Objektbaum von IP-Symcon (>=Ver. 5.x) mit einem Doppelklick _Öffnen_
+
+![Objektbaum](img/object_tree.png?raw=true "Objektbaum")	
+
+und das Plus Zeichen drücken.
+
+![Plus](img/plus.png?raw=true "Plus")
+	
+![ModulURL](img/add_module.png?raw=true "Add Module")
+
+Im Feld die folgende Module URL eintragen und mit _OK_ bestätigen:
+
+```
+https://github.com/softbar/MagicHomeWifiLED 
+```
+
+Anschließend erscheint ein Eintrag für das Modul in der Liste der Instanz _Modules_    
+
+Es wird im Standard der Zweig (Branch) _master_ geladen, dieser enthält aktuelle Änderungen und Anpassungen.
+Nur der Zweig _master_ wird aktuell gehalten.
+
+![Master](img/master.png?raw=true "master") 
+
+
+**c. Einrichtung der Module**
+
+In IP-Symcon nun zunächst mit einem rechten Mausklick auf **Discovery Instances** eine **neue Instanz** mit **Objekt hinzufügen** -> Instanz_ (_CTRL+1_ in der Legacy Konsole) hinzufügen, und **WifiBulb RGB/w Discover** auswählen.
+
+![Add Discovery Instance](img/create_discover.png?raw=true "Add Discovery Instance")
+
+Nach der Einrichtung der Discovery-Instanz erscheint eine Liste der verfügbaren Geräte.
+
+Das Gerät ist grün, insofern es noch nicht angelegt worden ist.
+  
+![List](img/discover_list.png?raw=true "Gefundene Geräte")
+
+Dann das gewünschte Gerät markieren und auf **Erstellen** drücken, die Instanz wird dann erzeugt.
 
 ## 6. Anmerkung
 

@@ -36,7 +36,7 @@ Currently the module is functional but unchecked or only with RGBW devices, see 
 ## 2. Extras
 - Editing device timers [1-6]
     - delete expired timers
-    - Create or change devices
+    - Create or change devices timers
     - read and write the device timer list
     - The timer list is permanently stored on the device and works independently of IPS, provided the device time is up to date.
 - read / set device time
