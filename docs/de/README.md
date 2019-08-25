@@ -60,8 +60,11 @@ Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Gerät
 
 ## 4. Module
 - Discover Modul zum finden der Geräte im Netzwerk
+    - ModuleID : {5638FDC0-C110-WIFI-MAHO-201905120WBD}
 - Modul zur Steuerung des Gerätes
+    - ModuleID : {5638FDC0-C110-WIFI-MAHO-201905120WBC}
 - Gruppen Modul zur steuerung von Geräte gruppen
+    - ModuleID : {5638FDC0-C110-WIFI-MAHO-201905120WBG}
 - Sprachen EN, DE
 
 
@@ -134,6 +137,8 @@ IP-Symcon -> Wlan RGB/w Geräte
 
 
 ## 6. Funktionsreferenz
+
+## _Geräte Modul_
 
 **RequestUpdate**
 ```php
@@ -232,6 +237,54 @@ Parameter:
 - _$InstanceID_ ObjektID des WifiBulb Devices
 - _$ProgramID_ ProgramID zur Ausführung (37-56) 0=aus
 - _$Speed100_ Neuer Wert für Geschwindigkeit (0-100)
+
+
+## _Geräte Gruppen Modul_
+
+**SetPower**
+```php
+WBG_SetPower(int $InstanceID, bool $PowerOn)
+``` 
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Gruppen Module
+- _$PowerOn_ True für AN false für AUS
+
+
+**SetColor**
+```php
+WBG_SetColor(int $InstanceID, int $Color)
+``` 
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Gruppen Module
+- _$Color_ Neuer Farbwert 
+
+**SetBrightness**
+```php
+WBG_SetBrightness(int $InstanceID, int $Level255)
+``` 
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Gruppen Module
+- _$Level255_ Neuer Wert für Helligkeit (0-255)
+
+**SetWhite**
+```php
+WBG_SetWhite(int $InstanceID, int $Level255)
+``` 
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Gruppen Module
+- _$Level255_ Neuer Wert für Weiß (0-255)
+
+
+**RunProgram**
+```php
+WBG_RunProgram(int $InstanceID, int $ProgramID, int $Speed100)
+``` 
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Gruppen Module
+- _$ProgramID_ ProgramID zur Ausführung (37-56) 0=aus
+- _$Speed100_ Neuer Wert für Geschwindigkeit (0-100)
+
+
 
 
 ## 7. Anmerkung
