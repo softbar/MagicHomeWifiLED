@@ -84,14 +84,14 @@
 		               						{"type":"CheckBox", "name":"Su", "caption":"Su", "onChange":"WBC_SetFormField($id,'Su','value',$Su);" }
 										]
 									},               						
-                		 			{"type": "SelectDate", "name": "Date", "caption": "Select start Date"},
-         							{"type": "SelectColor", "name": "Color", "caption": "Select Color", "onChange":"WBC_SetFormField($id,'Color','value',$Color);"},
-         							{ "type": "HorizontalSlider", "name": "Speed", "caption": "Preset speed","minimum": 0, "maximum": 100, "value":0 },
-                					{ "type": "HorizontalSlider", "name": "Duration", "caption": "Duration","minimum": 0, "maximum": 100, "value":0 },
-                 					{ "type": "HorizontalSlider", "name": "WWStart", "caption": "White Level start","minimum": 0, "maximum": 100, "value":0},
-                 					{ "type": "HorizontalSlider", "name": "WWEnd", "caption": "White Level end","minimum": 0, "maximum": 100, "value":0},
-                  					{ "type": "HorizontalSlider", "name": "WW", "caption": "White Level","minimum": 0, "maximum": 100, "value":0 },
-         							{"type":"Button","caption":"Save Timer","onClick":"if(is_null($Mode))echo 'No Function selected'; else IPS_RequestAction($id,'SAVE_TIMER',json_encode([$TimerID,$Active,$Mode,$Speed,$Duration,$WWStart,$WWEnd,$Color,$Date,$Time,$Mo,$Tu,$We,$Th,$Fr,$Sa,$Su,$WW,$Power]));"}
+                		 			{ "type": "SelectDate", "name": "Date", "caption": "Select start Date"},
+         							{ "type": "SelectColor", "name": "Color", "caption": "Select Color", "onChange":"WBC_SetFormField($id,'Color','value',$Color);"},
+         							{ "type": "HorizontalSlider", "name": "Speed", 		"caption": "Preset speed",		"minimum": 0, "maximum": 100, "value":0, "onChange":"WBC_SetFormField($id,'Speed','value',$Speed);" },
+                					{ "type": "HorizontalSlider", "name": "Duration", 	"caption": "Duration",			"minimum": 0, "maximum": 100, "value":0, "onChange":"WBC_SetFormField($id,'Duration','value',$Duration);"},
+                 					{ "type": "HorizontalSlider", "name": "WWStart", 	"caption": "White Level start",	"minimum": 0, "maximum": 100, "value":0, "onChange":"WBC_SetFormField($id,'WWStart','value',$WWStart);" },
+                 					{ "type": "HorizontalSlider", "name": "WWEnd", 		"caption": "White Level end",	"minimum": 0, "maximum": 100, "value":0, "onChange":"WBC_SetFormField($id,'WWEnd','value',$WWEnd);" },
+                  					{ "type": "HorizontalSlider", "name": "WW", 		"caption": "White Level",		"minimum": 0, "maximum": 100, "value":0, "onChange":"WBC_SetFormField($id,'WW','value',$WW);" },
+         							{ "type":"Button","caption":"Save Timer","onClick":"if(is_null($Mode))echo 'No Function selected'; else IPS_RequestAction($id,'SAVE_TIMER',json_encode([$TimerID,$Active,$Mode,$Speed,$Duration,$WWStart,$WWEnd,$Color,$Date,$Time,$Mo,$Tu,$We,$Th,$Fr,$Sa,$Su,$WW,$Power]));"}
          						]
         					}	
         				},

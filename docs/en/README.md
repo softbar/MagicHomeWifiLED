@@ -62,7 +62,8 @@ Currently the module is functional but unchecked or only with RGBW devices, see 
 
 ## 4. Modules
 - Discover module for finding the devices in the network
-- Control module for controlling the device
+- Module for controlling the device
+- Groups Module for controlling device groups
 - Languages EN, DE
 
 

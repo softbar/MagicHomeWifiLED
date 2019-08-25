@@ -60,7 +60,8 @@ Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Gerät
 
 ## 4. Module
 - Discover Modul zum finden der Geräte im Netzwerk
-- Steuerung Modul zur Steuerung des Gerätes
+- Modul zur Steuerung des Gerätes
+- Gruppen Modul zur steuerung von Geräte gruppen
 - Sprachen EN, DE
 
 
@@ -129,6 +130,8 @@ Nun das gewünschte Gerät markieren und auf **Erstellen** oder **Alle Erstellen
 Die durch das Discovery Module erstellten Instanzen finden sich im Objektbaum unter:
 IP-Symcon -> Wlan RGB/w Geräte
 ```
+
+
 
 ## 6. Funktionsreferenz
 
