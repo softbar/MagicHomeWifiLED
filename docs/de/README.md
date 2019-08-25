@@ -136,13 +136,16 @@ IP-Symcon -> Wlan RGB/w Geräte
 ```php
 WBC_RequestUpdate(int $InstanceID)
 ``` 
-Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Devices
 
 **SetPower**
 ```php
 WBC_SetPower(int $InstanceID, bool $PowerOn)
 ``` 
-Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Devices
+- _$PowerOn True für AN false für AUS
 
 **SetColor**
 ```php
