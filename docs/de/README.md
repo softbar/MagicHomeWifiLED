@@ -139,69 +139,96 @@ WBC_RequestUpdate(int $InstanceID)
 Parameter:
 - _$InstanceID_ ObjektID des WifiBulb Devices
 
+
 **SetPower**
 ```php
 WBC_SetPower(int $InstanceID, bool $PowerOn)
 ``` 
 Parameter:
 - _$InstanceID_ ObjektID des WifiBulb Devices
-- _$PowerOn True für AN false für AUS
+- _$PowerOn_ True für AN false für AUS
+
 
 **SetColor**
 ```php
 WBC_SetColor(int $InstanceID, int $Color)
 ``` 
-Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Devices
+- _$Color_ Neuer Farbwert 
+
 
 **SetRGBW**
 ```php
 WBC_SetRGBW(int $InstanceID, int $Red, int $Green, int $Blue, int $White = -1)
 ``` 
-Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Devices
+- _$Red_ Neuer Wert für Rot (0-255)
+- _$Green_ Neuer Wert für Grüün (0-255)
+- _$Blue_ Neuer Wert für Blau (0-255)
+- _$White_ Neuer Wert für Weiß (0-255) oder -1 für keine Änderung
+
 
 **SetRed**
 ```php
 WBC_SetRed(int $InstanceID, int $Level255)
 ``` 
-Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Devices
+- _$Level255_ Neuer Wert für Rot (0-255)
+
 
 **SetGreen**
 ```php
 WBC_SetGreen(int $InstanceID, int $Level255)
 ``` 
-Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Devices
+- _$Level255_ Neuer Wert für Grün (0-255)
+
 
 **SetBlue**
 ```php
 WBC_SetBlue(int $InstanceID, int $Level255)
 ``` 
-Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Devices
+- _$Level255_ Neuer Wert für Blau (0-255)
+
 
 **SetBrightness**
 ```php
 WBC_SetBrightness(int $InstanceID, int $Level255)
 ``` 
-Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Devices
+- _$Level255_ Neuer Wert für Helligkeit (0-255)
 
 **SetWhite**
 ```php
 WBC_SetWhite(int $InstanceID, int $Level255)
 ``` 
-Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Devices
+- _$Level255_ Neuer Wert für Weiß (0-255)
 
 **SetColdWhite**
 ```php
 WBC_SetColdWhite(int $InstanceID, int $Level255)
 ``` 
-Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Devices
+- _$Level255_ Neuer Wert für Kaltweiß (0-255)
 
 **RunProgram**
 ```php
 WBC_RunProgram(int $InstanceID, int $ProgramID, int $Speed100)
 ``` 
-Parameter _$InstanceID_ ObjektID des WifiBulb Devices
-
-
+Parameter:
+- _$InstanceID_ ObjektID des WifiBulb Devices
+- _$ProgramID_ ProgramID zur Ausführung (37-56) 0=aus
+- _$Speed100_ Neuer Wert für Geschwindigkeit (0-100)
 
 
 ## 7. Anmerkung
