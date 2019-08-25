@@ -22,7 +22,8 @@ Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Gerät
 3. [Unterstützte Protokolle](#3-protokolle)
 4. [Module](#4-module)
 5. [Installation](#5-installation)
-6. [Anmerkung](#6-anmerkung)
+6. [Funktionsreferenz](#6-funktionsreferenz) 
+7. [Anmerkung](#7-anmerkung)
 
 ## 1. Steuerung
 - An / Aus
@@ -116,18 +117,91 @@ In IP-Symcon nun zunächst mit einem rechten Mausklick auf **Discovery Instances
 
 ![Add Discovery Instance](img/create_discover.png?raw=true "Add Discovery Instance")
 
+Nach dem einrichten/öffnen der Discovery Instanz erscheint eine Liste der im Netzwerk erkannten Geräte.
 
+Das Gerät ist grün, insofern es noch nicht angelegt worden ist.
   
 ![List](img/discover_list.png?raw=true "Gefundene Geräte")
 
 Nun das gewünschte Gerät markieren und auf **Erstellen** oder **Alle Erstellen** klicken, die Instanz wird dann erzeugt.  
 
 ```
-Die durch das Discovery Module erstellten Instanzen finden sich  im Objektbaum unter:
+Die durch das Discovery Module erstellten Instanzen finden sich im Objektbaum unter:
 IP-Symcon -> Wlan RGB/w Geräte
 ```
 
-## 6. Anmerkung
+## 6. Funktionsreferenz
+
+**RequestUpdate**
+```php
+WBC_RequestUpdate(int $InstanceID)
+``` 
+Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+
+**SetPower**
+```php
+WBC_SetPower(int $InstanceID, bool $PowerOn)
+``` 
+Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+
+**SetColor**
+```php
+WBC_SetColor(int $InstanceID, int $Color)
+``` 
+Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+
+**SetRGBW**
+```php
+WBC_SetRGBW(int $InstanceID, int $Red, int $Green, int $Blue, int $White = -1)
+``` 
+Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+
+**SetRed**
+```php
+WBC_SetRed(int $InstanceID, int $Level255)
+``` 
+Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+
+**SetGreen**
+```php
+WBC_SetGreen(int $InstanceID, int $Level255)
+``` 
+Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+
+**SetBlue**
+```php
+WBC_SetBlue(int $InstanceID, int $Level255)
+``` 
+Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+
+**SetBrightness**
+```php
+WBC_SetBrightness(int $InstanceID, int $Level255)
+``` 
+Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+
+**SetWhite**
+```php
+WBC_SetWhite(int $InstanceID, int $Level255)
+``` 
+Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+
+**SetColdWhite**
+```php
+WBC_SetColdWhite(int $InstanceID, int $Level255)
+``` 
+Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+
+**RunProgram**
+```php
+WBC_RunProgram(int $InstanceID, int $ProgramID, int $Speed100)
+``` 
+Parameter _$InstanceID_ ObjektID des WifiBulb Devices
+
+
+
+
+## 7. Anmerkung
 
 
 
