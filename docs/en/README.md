@@ -24,7 +24,8 @@ Currently the module is functional but unchecked or only with RGBW devices, see 
 3. [Supported protocols](#3-protocols)
 4. [Modules](#4-modules)
 5. [Installation](#5-installation)
-6. [Annotation](#6-annotation)
+6. [Function reference](#6-funktion-reference) 
+7. [Annotation](#7-annotation)
 
 ## 1. Control
 - On off
@@ -130,7 +131,108 @@ The instances created by the Discovery Module can be found in the object tree un
 IP-Symcon -> Wlan RGB/w devices
 ```
 
-## 6. Annotation
+## 6. Funktion reference
+
+**RequestUpdate**
+```php
+WBC_RequestUpdate(int $InstanceID)
+``` 
+Parameter:
+- _$InstanceID_ ObjectID of the WifiBulb device
+
+
+**SetPower**
+```php
+WBC_SetPower(int $InstanceID, bool $PowerOn)
+``` 
+Parameter:
+- _$InstanceID_ ObjectID of the WifiBulb device
+- _$PowerOn_ True for ON or false for OFF
+
+
+**SetColor**
+```php
+WBC_SetColor(int $InstanceID, int $Color)
+``` 
+Parameter:
+- _$InstanceID_ ObjectID of the WifiBulb device
+- _$Color_ New color value 
+
+
+**SetRGBW**
+```php
+WBC_SetRGBW(int $InstanceID, int $Red, int $Green, int $Blue, int $White = -1)
+``` 
+Parameter:
+- _$InstanceID_ ObjectID of the WifiBulb device
+- _$Red_ New color value for red (0-255)
+- _$Green_ New color value for green (0-255)
+- _$Blue_ New color value for blue (0-255)
+- _$White_ New value for White (0-255) or -1 for no change
+
+
+**SetRed**
+```php
+WBC_SetRed(int $InstanceID, int $Level255)
+``` 
+Parameter:
+- _$InstanceID_ ObjectID of the WifiBulb device
+- _$Level255_ New color value for red (0-255)
+
+
+**SetGreen**
+```php
+WBC_SetGreen(int $InstanceID, int $Level255)
+``` 
+Parameter:
+- _$InstanceID_ ObjectID of the WifiBulb device
+- _$Level255_ New color value for green (0-255)
+
+
+**SetBlue**
+```php
+WBC_SetBlue(int $InstanceID, int $Level255)
+``` 
+Parameter:
+- _$InstanceID_ ObjectID of the WifiBulb device
+- _$Level255_ New color value for blue (0-255)
+
+
+**SetBrightness**
+```php
+WBC_SetBrightness(int $InstanceID, int $Level255)
+``` 
+Parameter:
+- _$InstanceID_ ObjectID of the WifiBulb device
+- _$Level255_ New value for brightness (0-255)
+
+**SetWhite**
+```php
+WBC_SetWhite(int $InstanceID, int $Level255)
+``` 
+Parameter:
+- _$InstanceID_ ObjectID of the WifiBulb device
+- _$Level255_ New value for white (0-255)
+
+**SetColdWhite**
+```php
+WBC_SetColdWhite(int $InstanceID, int $Level255)
+``` 
+Parameter:
+- _$InstanceID_ ObjectID of the WifiBulb device
+- _$Level255_ New value for cod white (0-255)
+
+**RunProgram**
+```php
+WBC_RunProgram(int $InstanceID, int $ProgramID, int $Speed100)
+``` 
+Parameter:
+- _$InstanceID_ ObjectID of the WifiBulb device
+- _$ProgramID_ ProgramID to execute (37-56) 0=aus
+- _$Speed100_ New value for Animation Speed (0-100)
+
+
+## 7. Annotation
 `
 
 
