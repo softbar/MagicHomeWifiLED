@@ -15,7 +15,6 @@ Magic Mini RGB/w Wifi Controller für LED Strip/Streifen. Funktioniert mit Alexa
 # Anleitung
 Derzeit ist das Modul funktionsfähig jedoch ungeprüft bzw. nur mit RGBW Geräten, siehe oben, von mir getestet;-)
 
-
 **Inhaltsverzeichnis**
 
 1. [Steuerung](#1-steuerung)  
@@ -117,13 +116,16 @@ In IP-Symcon nun zunächst mit einem rechten Mausklick auf **Discovery Instances
 
 ![Add Discovery Instance](img/create_discover.png?raw=true "Add Discovery Instance")
 
-Nach der Einrichtung der Discovery-Instanz erscheint eine Liste der verfügbaren Geräte.
 
-Das Gerät ist grün, insofern es noch nicht angelegt worden ist.
   
 ![List](img/discover_list.png?raw=true "Gefundene Geräte")
 
-Dann das gewünschte Gerät markieren und auf **Erstellen** drücken, die Instanz wird dann erzeugt.
+Nun das gewünschte Gerät markieren und auf **Erstellen** oder **Alle Erstellen** klicken, die Instanz wird dann erzeugt.  
+
+```
+Die durch das Discovery Module erstellten Instanzen finden sich  im Objektbaum unter:
+IP-Symcon -> Wlan RGB/w Geräte
+```
 
 ## 6. Anmerkung
 
