@@ -1,0 +1,22 @@
+{
+    "translations": {
+        "de": {
+            "Enable \/ Show": "Ansicht",
+            "Color": "Farbe",
+            "Brightness": "Helligkeit",
+            "White": "Weiß",
+            "Mode": "Modus",
+            "Power": "Schalten",
+            "Speed": "Geschwindigkeit",
+            "Controller": "Gerät",
+            "Select WifiBulb Device": "Wähle WifiBulb Gerät",
+            "Enable": "Aktivieren",
+            "Enabled": "Aktiviert",
+            "No Controller assigned": "Kein Controller zugewiesen",
+            "Missing or invalid InstanceID": "Fehlende oder ungültige Instanz-ID",
+            "Invalid oder deleted InstanceID": "Ungültige oder gelöschte InstanceID",
+            "Module is not a WifiBulbController": "Modul ist kein WifiBulbController",
+            "Duplicate InstanceID found": "Doppelte Instanz-ID gefunden"
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "elements": [
+    	{"type":"RowLayout", "items": [
+    			{"type": "Label", "caption":"Enable / Show"},
+		    	{ "name": "ShowColor", "type":"CheckBox", "caption":"Color"},
+		     	{ "name": "ShowBrightness", "type":"CheckBox", "caption":"Brightness"},
+		     	{ "name": "ShowWhite", "type":"CheckBox", "caption":"White"},
+		     	{ "name": "ShowMode", "type":"CheckBox", "caption":"Mode"}
+		    ]
+		},
+    
+ 		{ "name":"Controllers","type":"List", 
+			"add":true,"delete":true,
+			"columns":[
+		  		{"name":"instanceID", "caption":"Controller", "width":"auto","add":"", "edit":{"type":"SelectInstance", "caption":"Select WifiBulb Device"}},
+		  		{"name":"enabled", 	  "caption":"Enable","width":"160px","add":true,"edit":{"type":"CheckBox", "caption":"Enabled"}}
+			]
+		}
+   	],
+   	"status":[
+        { "code": 200, "icon": "inactive", "caption": "No Controller assigned" },
+        { "code": 201, "icon": "error", "caption": "Missing or invalid InstanceID" },
+        { "code": 202, "icon": "error", "caption": "Invalid oder deleted InstanceID" },
+        { "code": 203, "icon": "error", "caption": "Module is not a WifiBulbController"},
+        { "code": 204, "icon": "error", "caption": "Duplicate InstanceID found"}
+    ]
+	
+}
