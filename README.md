@@ -4,14 +4,10 @@
 
 # Magic Home Wifi LED
  
-Module für IP-Symcon ab **Version 5.2**  zur Steuerung des Magic Home Wifi RGB/w Controllers oder kompatible.
+Module für IP-Symcon **Version >= 5.2** zur Steuerung des Magic Home Wifi RGB/w Controllers oder kompatible.
 
  - [Deutsche Dokumentation](docs/de/README.md "Deutsche Dokumentation")
  
-Modules for IP-Symcon from ** Version 5.2 ** to control the Magic Home Wifi RGB / w controller or compatible.
+Modules for IP-Symcon **Version >= 5.2** to control the Magic Home Wifi RGB / w controller or compatible.
 
  - [English Documentation](docs/en/README.md "English documentation") 
-
-
-
-
